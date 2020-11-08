@@ -1615,10 +1615,10 @@ app.get("/api/v1/peaks/:id", (request, response) => {
 app.post("/api/v1/peaks", (request, response) => {
   const newPeak = request.body;
 
-  for (let requiredParameter of ["id", "name", "elevation", "rank", "range", "forest", "grizzlyBears", "marmots", "jerryLevel", "numberOfRoutes", "routes"]) {
+  for (let requiredParameter of ["id", "name", "elevation", "rank", "range", "forest", "grizzlyBears", "marmots", "jerryLevel", "numberOfRoutes"]) {
     if (!newPeak[requiredParameter])
       return response.status(422).json({
-        message: `You are missing a required parameter of ${requiredParameter}`,
+        message: `You are missing a required parameter: ${requiredParameter}`,
       });
   }
 
