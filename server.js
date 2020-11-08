@@ -1595,6 +1595,7 @@ app.locals.peaks = [
 
 
 app.set("port", 3001);
+app.use(express.static("public"));
 
 app.get("/api/v1/peaks", (request, response) => {
   response.status(200).json(app.locals.peaks);
