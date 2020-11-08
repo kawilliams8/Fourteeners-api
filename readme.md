@@ -95,13 +95,29 @@ Sample request:
     name: 'My New Fourteener',
     elevation: 14001,
     rank: 54,
-    range: "Sawatch",
-    forest: "San Isabel",
-    grizzlyBears: false,
-    marmots: true,
-    jerryLevel: "extreme",
-    numberOfRoutes: 1
+    range: "Sawatch"
   })
+}
+```
+
+Sample request, in POSTMAN:
+
+Headers panel:
+`Content-Type` should be `application/json`
+
+Body panel:
+```
+{
+    "id": 54,
+    "name": "My New Fourteener",
+    "elevation": 14001,
+    "rank": 54,
+    "range": "Sawatch",
+    "forest": "San Isabel", //optional
+    "grizzlyBears": true, //optional
+    "marmots": true, //optional
+    "jerryLevel": "extreme", //optional
+    "numberOfRoutes": 1 //optional
 }
 ```
 

@@ -1613,9 +1613,10 @@ app.get("/api/v1/peaks/:id", (request, response) => {
 });
 
 app.post("/api/v1/peaks", (request, response) => {
+  console.log('req.body', request.body);
   const newPeak = request.body;
 
-  for (let requiredParameter of ["id", "name", "elevation", "rank", "range", "forest", "grizzlyBears", "marmots", "jerryLevel", "numberOfRoutes"]) {
+  for (let requiredParameter of ["id", "name", "elevation", "rank", "range"]) {
     if (!newPeak[requiredParameter])
       return response.status(422).json({
         message: `You are missing a required parameter: ${requiredParameter}`,
