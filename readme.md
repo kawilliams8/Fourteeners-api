@@ -45,7 +45,7 @@ Sample response (200):
 Note: The id is equivalent to a peak's rank, if it is ranked amongst the fourteeners. Unranked peaks have ids ascending from 100.
 
 URL: `http://localhost:3001/api/v1/peaks/:id`
-Sample URL: `http://localhost:3001/api/v1/peaks/3`
+Sample URL: `http://localhost:3001/api/v1/peaks/1`
 
 Sample response (200):
 
@@ -76,7 +76,7 @@ Sample response (200):
 Sample response (404):
 
 ```js
-{message: 'No peak found with an id of 3'}
+{message: 'No peak found with an id of 75'}
 ```
 
 ### POST a new peak
