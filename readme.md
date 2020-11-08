@@ -137,7 +137,11 @@ URL: `http://localhost:3001/api/v1/peaks/:id`
 
 Sample URL: `http://localhost:3001/api/v1/peaks/2`
 
-Sample response (204): no content in the body, nothing to parse
+Sample response (204): 
+
+```
+no content in the body, nothing to parse
+```
 
 Sample BAD response (404):
 
