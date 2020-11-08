@@ -4,7 +4,7 @@
 
 Clone down this repo and `cd` in.
 Run `npm install`.
-Run `node server.js` to start the server.
+Run `node server.js`, or `npm start` to start the server with nodemon.
 In your browser, test by pasting `http://localhost:3001/api/v1/peaks/1` into the search bar. You should see response data for Mount Elbert.
 
 ## Endpoints

@@ -1613,7 +1613,6 @@ app.get("/api/v1/peaks/:id", (request, response) => {
 });
 
 app.post("/api/v1/peaks", (request, response) => {
-  console.log('req.body', request.body);
   const newPeak = request.body;
 
   for (let requiredParameter of ["id", "name", "elevation", "rank", "range"]) {
