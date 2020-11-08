@@ -81,6 +81,8 @@ Sample response (404):
 
 ### POST a new peak
 
+Note: The array of peaks is stored in the Express app's `app.locals.peaks`, which does not persist upon server restart.
+
 URL: `http://localhost:3001/api/v1/peaks`
 
 Sample request:
