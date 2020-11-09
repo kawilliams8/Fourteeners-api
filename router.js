@@ -34,4 +34,19 @@ router.post("/", (request, response) => {
   return response.status(201).json(newPeak);
 });
 
+router.delete("/:id", (request, response) => {
+  const { id } = request.params;
+  const peak = peaks.find((peak) => peak.id == id);
+
+  if (!peak)
+    return response
+      .status(404)
+      .json({ message: `No peak found with an id of ${id}` });
+
+  const filteredPeaks = peaks.filter((peak) => peak.id != id);
+  peaks = filteredPeaks;
+
+  return response.sendStatus(204);
+});
+
 module.exports = router;

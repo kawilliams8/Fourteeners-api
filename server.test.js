@@ -133,7 +133,7 @@ describe("api route testing", () => {
 
   test("GET api/v1/peaks - success", async () => {
     const { body, status } = await request(app).get("/api/v1/peaks");
-    expect(body.length).toEqual(3);
+    expect(body).toHaveLength(3);
     expect(typeof body).toBe("object");
     expect(status).toBe(200);
   });
@@ -158,6 +158,11 @@ describe("api route testing", () => {
     expect(body.name).toEqual("My New Fourteener");
     expect(typeof body).toBe("object");
     expect(status).toBe(201);
+  });
+
+  test("DELETE api/v1/peaks/15 - success", async () => {
+    const { body, status } = await request(app).delete("/api/v1/peaks/15");
+    expect(status).toEqual(204);
   });
 
 });
