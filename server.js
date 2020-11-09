@@ -15,9 +15,9 @@ app.set("port", 3001);
 app.use(express.static("public"));
 app.use(express.static("assets"));
 
-// app.get("/api/v1/peaks", (request, response) => {
-//   response.status(200).json(app.locals.peaks);
-// });
+app.get("/api/v1/peaks", (request, response) => {
+  response.status(200).json(app.locals.peaks);
+});
 
 app.get("/api/v1/peaks/:id", (request, response) => {
   const { id } = request.params;
