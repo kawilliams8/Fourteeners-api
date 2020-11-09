@@ -132,16 +132,32 @@ app.use("/api/v1/peaks/", routes);
 describe("api route testing", () => {
 
   test("GET api/v1/peaks - success", async () => {
-    const { body } = await request(app).get("/api/v1/peaks");
+    const { body, status } = await request(app).get("/api/v1/peaks");
     expect(body.length).toEqual(3);
     expect(typeof body).toBe("object");
+    expect(status).toBe(200);
   });
 
   test("GET api/v1/peaks/15 - success", async () => {
-    const { body } = await request(app).get("/api/v1/peaks/15");
+    const { body, status } = await request(app).get("/api/v1/peaks/15");
     expect(body.name).toEqual("Long's Peak");
     expect(body.range).toEqual("Front");
-    expect(body.routes.keyhole.difficulty).toEqual("class 3")
+    expect(body.routes.keyhole.difficulty).toEqual("class 3");
+    expect(status).toEqual(200)
+  });
+
+  test("POST api/v1/peaks - success", async () => {
+    let newPeak = {
+        id: 54,
+        name: "My New Fourteener",
+        elevation: 14001,
+        rank: 54,
+        range: "Sawatch",
+      };
+    const { body, status } = await request(app).post("/api/v1/peaks").send(newPeak);
+    expect(body.name).toEqual("My New Fourteener");
+    expect(typeof body).toBe("object");
+    expect(status).toBe(201);
   });
 
 });
