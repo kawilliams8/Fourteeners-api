@@ -1,4 +1,6 @@
 # Fourteeners API
+[![Build Status](https://travis-ci.com/kawilliams8/Fourteeners-api.svg?branch=main)](https://travis-ci.com/kawilliams8/Fourteeners-api)
+![Heroku](https://heroku-badge.herokuapp.com/?app=heroku-badge)
 
 ## Live API
 This api is deployed to `https://fourteeners-api.herokuapp.com/api/v1/peaks/`.
