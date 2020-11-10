@@ -1,6 +1,9 @@
 # Fourteeners API
 
-## Set Up
+## Live API
+This api is deployed to `https://fourteeners-api.herokuapp.com/api/v1/peaks/`.
+
+## Local Set Up
 
 Clone down this repo and `cd` in.
 Run `npm install`.
@@ -11,7 +14,7 @@ In your browser, test by pasting `http://localhost:3001/api/v1/peaks/1` into the
 
 ### GET all peaks
 
-URL: `http://localhost:3001/api/v1/peaks`
+URL: `http://localhost:3001/api/v1/peaks` or `https://fourteeners-api.herokuapp.com/api/v1/peaks`
 
 Sample response (200):
 
@@ -44,8 +47,8 @@ Sample response (200):
 
 Note: The id is equivalent to a peak's rank, if it is ranked amongst the fourteeners. Unranked peaks have ids ascending from 100.
 
-URL: `http://localhost:3001/api/v1/peaks/:id`
-Sample URL: `http://localhost:3001/api/v1/peaks/1`
+URL: `http://localhost:3001/api/v1/peaks/:id` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/:id`
+Sample URL: `http://localhost:3001/api/v1/peaks/1` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/1`
 
 Sample response (200):
 
@@ -83,7 +86,7 @@ Sample response (404):
 
 Note: The array of peaks is stored in the Express app's `app.locals.peaks`, which does not persist upon server restart.
 
-URL: `http://localhost:3001/api/v1/peaks`
+URL: `http://localhost:3001/api/v1/peaks` or `https://fourteeners-api.herokuapp.com/api/v1/peaks`
 
 Sample request:
 
@@ -151,9 +154,9 @@ Sample BAD response (422):
 
 ### DELETE a peak
 
-URL: `http://localhost:3001/api/v1/peaks/:id`
+URL: `http://localhost:3001/api/v1/peaks/:id` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/:id`
 
-Sample URL: `http://localhost:3001/api/v1/peaks/2`
+Sample URL: `http://localhost:3001/api/v1/peaks/2` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/2`
 
 Sample response (204): 
 
