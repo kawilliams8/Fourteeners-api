@@ -177,11 +177,45 @@ describe("Server", () => {
     expect(status).toEqual(204);
   });
 
-  test("DELETE api/v1/peaks/1", async () => {
+  test("DELETE api/v1/peaks/1 - not found fail", async () => {
     const id = 10000000;
     const { body, status} = await request(app).delete(`/api/v1/peaks/${id}`)
     expect(status).toBe(404);
     expect(body.message).toEqual(`No peak found with id ${id}`);
+  });
+
+  test("PATCH api/v1/peaks/15 - new name success", async () => {
+    const updatedPeak = {
+      id: 11,
+      name: "New Torrey's Peak"
+    };
+    const { body, status } = await request(app).patch(`/api/v1/peaks/${updatedPeak.id}`).send(updatedPeak);
+    expect(status).toBe(200);
+    expect(body.id).toEqual(updatedPeak.id);
+    expect(body.name).toEqual(updatedPeak.name);
+  });
+
+  test("PATCH api/v1/peaks/15 - new elevation and bears success", async () => {
+    const updatedPeak = {
+      id: 11,
+      elevation: 15000,
+      grizzlyBears: true
+    };
+    const { body, status } = await request(app).patch(`/api/v1/peaks/${updatedPeak.id}`).send(updatedPeak);
+    expect(status).toBe(200);
+    expect(body.id).toEqual(updatedPeak.id);
+    expect(body.elevation).toEqual(updatedPeak.elevation);
+    expect(body.grizzlyBears).toEqual(updatedPeak.grizzlyBears);
+  });
+
+  test('PATCH /api/v1/peaks/15 - no matching peak found fail', async () => {
+    const updatedPeak = {
+      id: 1000000000,
+    };
+    const id = updatedPeak.id;
+    const { body, status} = await request(app).patch(`/api/v1/peaks/${id}`).send(updatedPeak);
+    expect(status).toBe(404);
+    expect(body.message).toEqual("No peak found with id 1000000000 to update");
   });
 
 });

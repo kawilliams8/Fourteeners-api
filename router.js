@@ -55,4 +55,23 @@ router.delete("/:id", (request, response) => {
   return response.sendStatus(204);
 });
 
+router.patch("/:id", (request, response) => {
+  const { body } = request;
+  const { id } = request.params;
+  const peak = peaks.find((peak) => peak.id == id);
+
+  if (!peak) {
+    return response
+      .status(404)
+      .json({ message: `No peak found with id ${id} to update` });
+  } else {
+    for (let parameter of ["name", "elevation", "rank", "range", "forest", "grizzlyBears", "marmots", "jerryLevel"]) {
+      if (body[parameter]) {
+        peak[parameter] = body[parameter];
+      }
+    }
+    return response.status(200).send(peak);
+  }
+});
+
 module.exports = router;
