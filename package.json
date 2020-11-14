@@ -4,7 +4,7 @@
   "description": "An Express refresher project",
   "main": "server.js",
   "scripts": {
-    "test": "jest --silent",
+    "test": "jest",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "jest --coverage",
     "start": "nodemon --exec babel-node server.js"
