@@ -130,7 +130,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use("/api/v1/peaks/", routes);
 
-describe("api route testing", () => {
+describe("Server", () => {
+
+  test("should return a 200 status", async () => {
+      const res = await request(app).get("/api/v1/peaks");
+      expect(res.status).toBe(200);
+    });
 
   test("GET api/v1/peaks - success", async () => {
     const { body, status } = await request(app).get("/api/v1/peaks");
@@ -147,6 +152,13 @@ describe("api route testing", () => {
     expect(status).toEqual(200)
   });
 
+  test("GET api/va/peaks/-1 - fail", async () => {
+    const invalidID = -1;
+    const { body, status } = await request(app).get(`/api/v1/peaks/${invalidID}`)
+    expect(status).toBe(404);
+    expect(body.message).toEqual("No peak found with an id of -1");
+  });
+
   test("POST api/v1/peaks - success", async () => {
     let newPeak = {
         id: 54,
@@ -159,6 +171,25 @@ describe("api route testing", () => {
     expect(body.name).toEqual("My New Fourteener");
     expect(typeof body).toBe("object");
     expect(status).toBe(201);
+  });
+
+  test("POST api/v1/peaks - simple fail", async () => {
+    const newPeak = { fake: "fake" };
+    const { body, status } = await request(app).post("/api/v1/peaks").send(newPeak)
+    expect(status).toBe(422);
+    expect(body.message).toEqual(`You are missing a required parameter: id`);
+  });
+
+  test("POST api/v1/peaks - req'd parameter fail", async () => {
+    const newPeak = {
+      id: 75,
+      name: "New Peak",
+      elevation: 14001,
+      rank: 75
+    };
+    const { body, status } = await request(app).post("/api/v1/peaks").send(newPeak);
+    expect(status).toBe(422);
+    expect(body.message).toEqual(`You are missing a required parameter: range`);
   });
 
   test("DELETE api/v1/peaks/15 - success", async () => {
