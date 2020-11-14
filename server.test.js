@@ -160,7 +160,7 @@ describe("Server", () => {
     expect(body.message).toEqual(`No peak found with id ${id}`);
   });
 
-  test("PATCH api/v1/peaks/15 - new name success", async () => {
+  test("PATCH api/v1/peaks/11 - new name success", async () => {
     const updatedPeak = {
       id: 11,
       name: "New Torrey's Peak"
@@ -171,7 +171,7 @@ describe("Server", () => {
     expect(body.name).toEqual(updatedPeak.name);
   });
 
-  test("PATCH api/v1/peaks/15 - new elevation and bears success", async () => {
+  test("PATCH api/v1/peaks/11 - new elevation and bears success", async () => {
     const updatedPeak = {
       id: 11,
       elevation: 15000,
@@ -184,7 +184,7 @@ describe("Server", () => {
     expect(body.grizzlyBears).toEqual(updatedPeak.grizzlyBears);
   });
 
-  test('PATCH /api/v1/peaks/15 - no matching peak found fail', async () => {
+  test('PATCH /api/v1/peaks/11 - no matching peak found fail', async () => {
     const updatedPeak = {
       id: 1000000000,
     };
@@ -194,7 +194,7 @@ describe("Server", () => {
     expect(body.message).toEqual("No peak found with id 1000000000 to update");
   });
 
-  test("PATCH api/v1/peaks/15 - all routes update fail", async () => {
+  test("PATCH api/v1/peaks/11 - all routes update fail", async () => {
     const updatedPeak = {
       id: 11,
       routes: {
