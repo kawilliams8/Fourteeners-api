@@ -3,6 +3,7 @@ const routes = require("./router");
 const { save } = require("./save_json");
 const request = require("supertest");
 const bodyParser = require("body-parser");
+const environment = process.env.NODE_ENV || "development";
 
 jest.mock("./save_json", () => ({
   save: jest.fn(),
