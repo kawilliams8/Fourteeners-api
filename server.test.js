@@ -91,39 +91,7 @@ jest.mock("./assets/peaks.json", () => [
         exposure: 2,
       },
     },
-  },
-  {
-    id: 15,
-    name: "Long's Peak",
-    elevation: 14255,
-    rank: 15,
-    range: "Front",
-    forest: "Rocky Mountain National Park",
-    grizzlyBears: false,
-    marmots: true,
-    jerryLevel: "extreme",
-    numberOfRoutes: 3,
-    routes: {
-      keyhole: {
-        mileage: 14.5,
-        gain: 5100,
-        difficulty: "class 3",
-        exposure: 4,
-      },
-      loft: {
-        mileage: 13,
-        gain: 5300,
-        difficulty: "class 3",
-        exposure: 4,
-      },
-      keplingersCouloir: {
-        mileage: 16,
-        gain: 5900,
-        difficulty: "class 3",
-        exposure: 4,
-      },
-    },
-  },
+  }
 ]);
 
 const app = express();
@@ -139,7 +107,7 @@ describe("Server", () => {
 
   test("GET api/v1/peaks - success", async () => {
     const { body, status } = await request(app).get("/api/v1/peaks");
-    expect(body).toHaveLength(3);
+    expect(body).toHaveLength(2);
     expect(typeof body).toBe("object");
     expect(status).toBe(200);
   });
@@ -173,7 +141,7 @@ describe("Server", () => {
     expect(status).toBe(201);
   });
 
-  test("POST api/v1/peaks - simple fail", async () => {
+  test("POST api/v1/peaks - no id fail", async () => {
     const newPeak = { fake: "fake" };
     const { body, status } = await request(app).post("/api/v1/peaks").send(newPeak)
     expect(status).toBe(422);
@@ -190,6 +158,18 @@ describe("Server", () => {
     const { body, status } = await request(app).post("/api/v1/peaks").send(newPeak);
     expect(status).toBe(422);
     expect(body.message).toEqual(`You are missing a required parameter: range`);
+  });
+
+  test("POST api/v1/peaks - duplicate peak id fail", async () => {
+    const newPeak = {
+      id: 15,
+      name: "Long's Peak",
+      elevation: 14255,
+      rank: 15
+    };
+    const { body, status } = await request(app).post("/api/v1/peaks").send(newPeak);
+    expect(status).toBe(400);
+    expect(body.message).toEqual(`There is already a peak with this id: 15`);
   });
 
   test("DELETE api/v1/peaks/15 - success", async () => {

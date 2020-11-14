@@ -23,15 +23,21 @@ router.get("/:id", (request, response) => {
 
 router.post("/", (request, response) => {
   const newPeak = request.body;
-  for (let requiredParameter of ["id", "name", "elevation", "rank", "range"]) {
-    if (!newPeak[requiredParameter])
-      return response.status(422).json({
-        message: `You are missing a required parameter: ${requiredParameter}`,
-      });
+  const foundDuplicate = peaks.find((peak) => peak.id == newPeak.id);
+  if (foundDuplicate) {
+    return response
+      .status(400)
+      .json({ message: `There is already a peak with this id: ${newPeak.id}` });
+  } else {
+    for (let requiredParameter of ["id", "name", "elevation", "rank", "range"]) {
+      if (!newPeak[requiredParameter])
+        return response
+        .status(422)
+        .json({message: `You are missing a required parameter: ${requiredParameter}`});
+    }
+    peaks = [...peaks, newPeak];
+    return response.status(201).json(newPeak);
   }
-  peaks = [...peaks, newPeak];
-
-  return response.status(201).json(newPeak);
 });
 
 router.delete("/:id", (request, response) => {
