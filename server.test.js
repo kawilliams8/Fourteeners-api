@@ -65,31 +65,7 @@ jest.mock("./assets/peaks.json", () => [
         gain: 3100,
         difficulty: "class 3",
         exposure: 4,
-      },
-      deadDogCouloir: {
-        mileage: 6.5,
-        gain: 3000,
-        difficulty: "class 3",
-        exposure: 3,
-      },
-      tuningFork: {
-        mileage: 10.5,
-        gain: 4500,
-        difficulty: "class 2+",
-        exposure: 2,
-      },
-      emperorCouloir: {
-        mileage: 9.5,
-        gain: 4500,
-        difficulty: "class 3",
-        exposure: 3,
-      },
-      westRidge: {
-        mileage: 10,
-        gain: 5500,
-        difficulty: "class 2",
-        exposure: 2,
-      },
+      }
     },
   }
 ]);
@@ -216,6 +192,21 @@ describe("Server", () => {
     const { body, status} = await request(app).patch(`/api/v1/peaks/${id}`).send(updatedPeak);
     expect(status).toBe(404);
     expect(body.message).toEqual("No peak found with id 1000000000 to update");
+  });
+
+  test("PATCH api/v1/peaks/15 - all routes update fail", async () => {
+    const updatedPeak = {
+      id: 11,
+      routes: {
+        someNewRoute: {}
+      }
+    };
+    const { body, status } = await request(app).patch(`/api/v1/peaks/${updatedPeak.id}`).send(updatedPeak);
+    expect(status).toBe(200);
+    expect(body.id).toEqual(updatedPeak.id);
+    expect(body.routes.kelsoRidge.mileage).toEqual(6.75);
+    expect(body.routes.southSlopes.gain).toEqual(3000);
+    expect(body.routes.someNewRoute).toBe(undefined);
   });
 
 });
