@@ -177,4 +177,11 @@ describe("Server", () => {
     expect(status).toEqual(204);
   });
 
+  test("DELETE api/v1/peaks/1", async () => {
+    const id = 10000000;
+    const { body, status} = await request(app).delete(`/api/v1/peaks/${id}`)
+    expect(status).toBe(404);
+    expect(body.message).toEqual(`No peak found with id ${id}`);
+  });
+
 });

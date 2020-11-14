@@ -47,7 +47,7 @@ router.delete("/:id", (request, response) => {
   if (!peak)
     return response
       .status(404)
-      .json({ message: `No peak found with an id of ${id}` });
+      .json({ message: `No peak found with id ${id}` });
 
   const filteredPeaks = peaks.filter((peak) => peak.id != id);
   peaks = filteredPeaks;
