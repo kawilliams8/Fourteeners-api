@@ -82,11 +82,9 @@ router.patch("/:id", (request, response) => {
     let routeDetails = Object.values(routes)[0];
     if (routeDetails) {
       peak.routes[routeName] = routeDetails;
-
     }
     return response.status(200).send(peak);
   }
-
 });
 
 module.exports = router;

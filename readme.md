@@ -171,3 +171,143 @@ Sample BAD response (404):
 ```js
 {message: 'No peak found with an id of 75'}
 ```
+
+### PATCH details for one peak
+
+URL: `http://localhost:3001/api/v1/peaks/:id` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/:id`
+
+Sample URL: `http://localhost:3001/api/v1/peaks/2` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/2`
+
+Note: Any combination of details can be updated in one request.
+
+Sample request:
+
+```js
+{
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    id: 1,
+    name: 'New Mount Elbert Name', //optional
+    elevation: 14750, //optional
+    rank: 54, //optional
+    range: "Range Name", //optional
+    forest: "Forest Name", //optional
+    grizzlyBears: true, //optional
+    marmots: true, //optional
+    jerryLevel: "low", "medium", "high", "critical", or "extreme" //optional
+    numberOfRoutes: 4 //optional
+  })
+}
+```
+
+Sample response (200): This returns the updated peak
+
+```js
+  { id: 1, name: 'New Mount Elbert Name', ... }
+```
+
+Sample BAD response (404):
+
+```js
+{message: 'No peak found with id 1 to update'}
+```
+
+### PATCH details for one route
+
+URL: `http://localhost:3001/api/v1/peaks/:id` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/:id`
+
+Sample URL: `http://localhost:3001/api/v1/peaks/2` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/2`
+
+Note: All four route details must be included.
+
+Sample request:
+
+```js
+{
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    id: 1,
+    routes: {
+      { southSlopes:
+        { mileage: 8.1,
+          gain: 4701,
+          difficulty: "Class 1",
+          exposure: 1
+          }
+      }
+    }
+  })
+}
+```
+
+Sample response (200): This returns the updated peak.
+
+```js
+  { id: 1,
+    name: 'Mount Elbert',
+    ...,
+    routes: {
+      "southSlopes": {
+      "mileage": 8.1,
+      "gain": 4701,
+      "difficulty": "class 1",
+      "exposure": 1
+    },
+    ...
+    }
+```
+
+Sample BAD response (200): This always returns the peak, even if no updates were made.
+
+### PATCH details to edit an existing peak and create an entirely new route
+
+URL: `http://localhost:3001/api/v1/peaks/:id` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/:id`
+
+Sample URL: `http://localhost:3001/api/v1/peaks/2` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/2`
+
+Note: All four route details must be included.
+
+Sample request:
+
+```js
+{
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    id: 1,
+    routes: {
+      { newRoute:
+        { mileage: 6,
+          gain: 3000,
+          difficulty: "Class 2",
+          exposure: 1
+          }
+      }
+    }
+  })
+}
+```
+
+Sample response (200): This returns the updated peak
+
+```js
+  { id: 1,
+    name: 'Mount Elbert',
+    ...,
+    routes: {
+      "newRoute": {
+      "mileage": 6,
+      "gain": 3000,
+      "difficulty": "class 2",
+      "exposure": 1
+    },
+    ...
+    }
+```
+
+Sample BAD response (200): This always returns the peak, even if no updates were made.

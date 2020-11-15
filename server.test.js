@@ -96,13 +96,13 @@ jest.mock("./assets/peaks.json", () => [
         mileage: 8,
         gain: 3000,
         difficulty: "class 2",
-        exposure: 1,
+        exposure: 1
       },
       kelsoRidge: {
         mileage: 6.75,
         gain: 3100,
         difficulty: "class 3",
-        exposure: 4,
+        exposure: 4
       }
     }
   }
@@ -270,6 +270,8 @@ describe("Server", () => {
         southSlopes: {
           mileage: 8.1,
           gain: 3001,
+          class: "class 1",
+          exposure: 3
         },
       },
     };
@@ -280,6 +282,32 @@ describe("Server", () => {
     expect(body.id).toEqual(updatedPeak.id);
     expect(body.routes.southSlopes.mileage).toEqual(8.1);
     expect(body.routes.southSlopes.gain).toEqual(3001);
+    expect(body.routes.southSlopes.class).toEqual("class 1");
+    expect(body.routes.southSlopes.exposure).toEqual(3);
+    expect(body.routes.someNewRoute).toEqual({});
+  });
+
+  test("PATCH api/v1/peaks/11 - new route add success", async () => {
+    const newRoute = {
+      id: 11,
+      routes: {
+        newRoute: {
+          mileage: 12,
+          gain: 3500,
+          difficulty: "class 2",
+          exposure: 2,
+        },
+      },
+    };
+    const { body, status } = await request(app)
+      .patch(`/api/v1/peaks/${newRoute.id}`)
+      .send(newRoute);
+    expect(status).toBe(200);
+    expect(body.id).toEqual(newRoute.id);
+    expect(body.routes.newRoute.mileage).toEqual(12);
+    expect(body.routes.newRoute.gain).toEqual(3500);
+    expect(body.routes.newRoute.difficulty).toEqual("class 2");
+    expect(body.routes.newRoute.exposure).toEqual(2);
     expect(body.routes.someNewRoute).toEqual({});
   });
 });
