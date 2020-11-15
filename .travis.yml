@@ -1,9 +1,3 @@
 language: node_js
 node_js:
   - 15
-deploy:
-  provider: heroku
-  api_key:
-    secure: "699693f2-9448-4f2b-987a-4ea2319a172c"
-  app: fourteeners-api
-  on: main
