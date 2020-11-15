@@ -64,14 +64,29 @@ router.patch("/:id", (request, response) => {
     return response
       .status(404)
       .json({ message: `No peak found with id ${id} to update` });
-  } else {
-    for (let parameter of ["name", "elevation", "rank", "range", "forest", "grizzlyBears", "marmots", "jerryLevel"]) {
-      if (body[parameter]) {
-        peak[parameter] = body[parameter];
-      }
+  } else if (peak && !body.routes) {
+    let {name, elevation, rank, range, forest, grizzlyBears, marmots, jerryLevel, numberOfRoutes} = body;
+    peak.name = name;
+    peak.forest = forest;
+    peak.elevation = elevation;
+    peak.rank = rank;
+    peak.range = range;
+    peak.grizzlyBears = grizzlyBears;
+    peak.marmots = marmots;
+    peak.jerryLevel = jerryLevel;
+    peak.numberOfRoutes = numberOfRoutes;
+    return response.status(200).send(peak);
+  } else if (peak && body.routes) {
+    let { routes } = body;
+    let routeName = Object.keys(routes)[0];
+    let routeDetails = Object.values(routes)[0];
+    if (routeDetails) {
+      peak.routes[routeName] = routeDetails;
+
     }
     return response.status(200).send(peak);
   }
+
 });
 
 module.exports = router;

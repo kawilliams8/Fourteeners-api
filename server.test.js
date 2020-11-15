@@ -43,6 +43,44 @@ jest.mock("./assets/peaks.json", () => [
     },
   },
   {
+    id: 9,
+    name: "Gray's Peak",
+    elevation: 14270,
+    rank: 9,
+    range: "Front",
+    forest: "Arapaho",
+    grizzlyBears: false,
+    marmots: true,
+    jerryLevel: "critical",
+    numberOfRoutes: 4,
+    routes: {
+      northSlopes: {
+        mileage: 8,
+        gain: 3000,
+        difficulty: "class 1",
+        exposure: 1,
+      },
+      southRidge: {
+        mileage: 7,
+        gain: 3250,
+        difficulty: "class 2",
+        exposure: 2,
+      },
+      lostRatCouloir: {
+        mileage: 6.5,
+        gain: 3000,
+        difficulty: "class 3",
+        exposure: 3,
+      },
+      southWestRidge: {
+        mileage: 10.25,
+        gain: 3800,
+        difficulty: "class 2",
+        exposure: 1,
+      }
+    }
+  },
+  {
     id: 11,
     name: "Torrey's Peak",
     elevation: 14267,
@@ -66,7 +104,7 @@ jest.mock("./assets/peaks.json", () => [
         difficulty: "class 3",
         exposure: 4,
       }
-    },
+    }
   }
 ]);
 
@@ -83,7 +121,7 @@ describe("Server", () => {
 
   test("GET api/v1/peaks - success", async () => {
     const { body, status } = await request(app).get("/api/v1/peaks");
-    expect(body).toHaveLength(2);
+    expect(body).toHaveLength(3);
     expect(typeof body).toBe("object");
     expect(status).toBe(200);
   });
@@ -166,15 +204,31 @@ describe("Server", () => {
       name: "New Torrey's Peak"
     };
     const { body, status } = await request(app).patch(`/api/v1/peaks/${updatedPeak.id}`).send(updatedPeak);
+    // console.log('response', body, status)
     expect(status).toBe(200);
     expect(body.id).toEqual(updatedPeak.id);
     expect(body.name).toEqual(updatedPeak.name);
   });
 
-  test("PATCH api/v1/peaks/11 - new elevation and bears success", async () => {
+  test("PATCH api/v1/peaks/9 - multiple new parameters consecutive success", async () => {
     const updatedPeak = {
-      id: 11,
+      id: 9,
+      name: "New Gray's Peak",
       elevation: 15000,
+      grizzlyBears: true
+    };
+    const { body, status } = await request(app).patch(`/api/v1/peaks/${updatedPeak.id}`).send(updatedPeak);
+    expect(status).toBe(200);
+    expect(body.id).toEqual(updatedPeak.id);
+    expect(body.elevation).toEqual(updatedPeak.elevation);
+    expect(body.grizzlyBears).toEqual(updatedPeak.grizzlyBears);
+  });
+
+    test("PATCH api/v1/peaks/9 - multiple new parameters non-consecutive success", async () => {
+    const updatedPeak = {
+      id: 9,
+      name: "New Gray's Peak",
+      numberOfRoutes: 2,
       grizzlyBears: true
     };
     const { body, status } = await request(app).patch(`/api/v1/peaks/${updatedPeak.id}`).send(updatedPeak);
@@ -206,7 +260,26 @@ describe("Server", () => {
     expect(body.id).toEqual(updatedPeak.id);
     expect(body.routes.kelsoRidge.mileage).toEqual(6.75);
     expect(body.routes.southSlopes.gain).toEqual(3000);
-    expect(body.routes.someNewRoute).toBe(undefined);
+    expect(body.routes.someNewRoute).toEqual({});
   });
 
+  test("PATCH api/v1/peaks/11 - one route update success", async () => {
+    const updatedPeak = {
+      id: 11,
+      routes: {
+        southSlopes: {
+          mileage: 8.1,
+          gain: 3001,
+        },
+      },
+    };
+    const { body, status } = await request(app)
+      .patch(`/api/v1/peaks/${updatedPeak.id}`)
+      .send(updatedPeak);
+    expect(status).toBe(200);
+    expect(body.id).toEqual(updatedPeak.id);
+    expect(body.routes.southSlopes.mileage).toEqual(8.1);
+    expect(body.routes.southSlopes.gain).toEqual(3001);
+    expect(body.routes.someNewRoute).toEqual({});
+  });
 });
