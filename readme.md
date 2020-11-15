@@ -86,8 +86,6 @@ Sample response (404):
 
 ### POST a new peak
 
-Note: The array of peaks is stored in the Express app's `app.locals.peaks`, which does not persist upon server restart.
-
 URL: `http://localhost:3001/api/v1/peaks` or `https://fourteeners-api.herokuapp.com/api/v1/peaks`
 
 Sample request:
@@ -160,11 +158,7 @@ URL: `http://localhost:3001/api/v1/peaks/:id` or `https://fourteeners-api.heroku
 
 Sample URL: `http://localhost:3001/api/v1/peaks/2` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/2`
 
-Sample response (204): 
-
-```
-no content in the body, nothing to parse
-```
+Sample response (204): No further details are sent for a successful deletion.
 
 Sample BAD response (404):
 
@@ -178,7 +172,7 @@ URL: `http://localhost:3001/api/v1/peaks/:id` or `https://fourteeners-api.heroku
 
 Sample URL: `http://localhost:3001/api/v1/peaks/2` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/2`
 
-Note: Any combination of details can be updated in one request.
+Note: Any combination of details can be updated in one request; only the id is required.
 
 Sample request:
 
@@ -220,7 +214,7 @@ URL: `http://localhost:3001/api/v1/peaks/:id` or `https://fourteeners-api.heroku
 
 Sample URL: `http://localhost:3001/api/v1/peaks/2` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/2`
 
-Note: All four route details must be included.
+Note: The peak id, route name, and all four route details must be included.
 
 Sample request:
 
@@ -269,7 +263,7 @@ URL: `http://localhost:3001/api/v1/peaks/:id` or `https://fourteeners-api.heroku
 
 Sample URL: `http://localhost:3001/api/v1/peaks/2` or `https://fourteeners-api.herokuapp.com/api/v1/peaks/2`
 
-Note: All four route details must be included.
+Note: The peak id, new route name, and all four route details must be included.
 
 Sample request:
 
