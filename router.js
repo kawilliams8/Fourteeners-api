@@ -56,7 +56,7 @@ router.delete("/:id", (request, response) => {
 });
 
 router.patch("/:id", (request, response) => {
-  const { body } = request;
+  const updatedPeak = request.body;
   const { id } = request.params;
   const peak = peaks.find((peak) => peak.id == id);
 
@@ -64,8 +64,8 @@ router.patch("/:id", (request, response) => {
     return response
       .status(404)
       .json({ message: `No peak found with id ${id} to update` });
-  } else if (peak && !body.routes) {
-    let {name, elevation, rank, range, forest, grizzlyBears, marmots, jerryLevel, numberOfRoutes} = body;
+  } else if (peak && !updatedPeak.routes) {
+    let {name, elevation, rank, range, forest, grizzlyBears, marmots, jerryLevel, numberOfRoutes} = updatedPeak;
     peak.name = name;
     peak.forest = forest;
     peak.elevation = elevation;
@@ -76,8 +76,8 @@ router.patch("/:id", (request, response) => {
     peak.jerryLevel = jerryLevel;
     peak.numberOfRoutes = numberOfRoutes;
     return response.status(200).send(peak);
-  } else if (peak && body.routes) {
-    let { routes } = body;
+  } else if (peak && updatedPeak.routes) {
+    let { routes } = updatedPeak;
     let routeName = Object.keys(routes)[0];
     let routeDetails = Object.values(routes)[0];
     if (routeDetails) {
