@@ -4,6 +4,7 @@
 
 ## Live API
 This api is deployed to `https://fourteeners-api.herokuapp.com/api/v1/peaks/`.
+Server logging occurs via a Heroku/LOGDNA add on.
 
 ## Local Set Up
 
@@ -226,15 +227,14 @@ Sample request:
   body: JSON.stringify({
     id: 1,
     routes: {
-      { southSlopes:
+      southSlopes:
         { mileage: 8.1,
           gain: 4701,
           difficulty: "Class 1",
           exposure: 1
-          }
+        }
       }
-    }
-  })
+    })
 }
 ```
 
