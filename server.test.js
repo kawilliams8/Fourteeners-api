@@ -112,7 +112,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use("/api/v1/peaks/", routes);
 
-describe("Server", () => {
+describe("Router.js", () => {
 
   test("should return a 200 status", async () => {
       const res = await request(app).get("/api/v1/peaks");
