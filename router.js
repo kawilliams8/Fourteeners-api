@@ -75,7 +75,7 @@ router.patch("/:id", (request, response) => {
     peak.marmots = marmots;
     peak.jerryLevel = jerryLevel;
     peak.numberOfRoutes = numberOfRoutes;
-    return response.status(200).send(peak);
+    return response.status(200).json(peak);
   } else if (peak && updatedPeak.routes) {
     let { routes } = updatedPeak;
     let routeName = Object.keys(routes)[0];
@@ -83,7 +83,7 @@ router.patch("/:id", (request, response) => {
     if (routeDetails) {
       peak.routes[routeName] = routeDetails;
     }
-    return response.status(200).send(peak);
+    return response.status(200).json(peak);
   }
 });
 
