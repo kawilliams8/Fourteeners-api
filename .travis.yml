@@ -4,6 +4,6 @@ node_js:
 deploy:
   provider: heroku
   api_key:
-    secure: "a523a910-c615-41a7-a539-1e9e2371b43d"
+    secure: "699693f2-9448-4f2b-987a-4ea2319a172c"
   app: fourteeners-api
   on: main
