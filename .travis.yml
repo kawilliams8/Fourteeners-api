@@ -6,3 +6,4 @@ deploy:
   api_key:
     secure: "a523a910-c615-41a7-a539-1e9e2371b43d"
   app: fourteeners-api
+  on: main
