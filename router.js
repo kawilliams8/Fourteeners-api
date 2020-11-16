@@ -58,32 +58,32 @@ router.delete("/:id", (request, response) => {
 router.patch("/:id", (request, response) => {
   const updatedPeak = request.body;
   const { id } = request.params;
-  const peak = peaks.find((peak) => peak.id == id);
+  const currentPeak = peaks.find(peak => peak.id == id);
 
-  if (!peak) {
+  if (!currentPeak) {
     return response
       .status(404)
       .json({ message: `No peak found with id ${id} to update` });
-  } else if (peak && !updatedPeak.routes) {
+  } else if (currentPeak && !updatedPeak.routes) {
     let {name, elevation, rank, range, forest, grizzlyBears, marmots, jerryLevel, numberOfRoutes} = updatedPeak;
-    peak.name = name;
-    peak.forest = forest;
-    peak.elevation = elevation;
-    peak.rank = rank;
-    peak.range = range;
-    peak.grizzlyBears = grizzlyBears;
-    peak.marmots = marmots;
-    peak.jerryLevel = jerryLevel;
-    peak.numberOfRoutes = numberOfRoutes;
-    return response.status(200).json(peak);
-  } else if (peak && updatedPeak.routes) {
+    name ? currentPeak.name = name : false;
+    forest ? currentPeak.forest = forest : false;
+    elevation ? currentPeak.elevation = elevation : false;
+    rank ? currentPeak.rank = rank : false;
+    range ? currentPeak.range = range : false;
+    grizzlyBears? currentPeak.grizzlyBears = grizzlyBears : false;
+    marmots ? currentPeak.marmots = marmots : false;
+    jerryLevel ? currentPeak.jerryLevel = jerryLevel : false;
+    numberOfRoutes ? currentPeak.numberOfRoutes = numberOfRoutes : false;
+    return response.status(200).json(currentPeak);
+  } else if (currentPeak && updatedPeak.routes) {
     let { routes } = updatedPeak;
     let routeName = Object.keys(routes)[0];
     let routeDetails = Object.values(routes)[0];
     if (routeDetails) {
-      peak.routes[routeName] = routeDetails;
+      currentPeak.routes[routeName] = routeDetails;
     }
-    return response.status(200).json(peak);
+    return response.status(200).json(currentPeak);
   }
 });
 

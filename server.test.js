@@ -232,10 +232,12 @@ describe("Router.js", () => {
       grizzlyBears: true
     };
     const { body, status } = await request(app).patch(`/api/v1/peaks/${updatedPeak.id}`).send(updatedPeak);
+    console.log('patch body', body)
     expect(status).toBe(200);
     expect(body.id).toEqual(updatedPeak.id);
-    expect(body.elevation).toEqual(updatedPeak.elevation);
+    expect(body.elevation).toEqual(15000);
     expect(body.grizzlyBears).toEqual(updatedPeak.grizzlyBears);
+    expect(body.forest).toEqual("Arapaho");
   });
 
   test('PATCH /api/v1/peaks/11 - no matching peak found fail', async () => {
